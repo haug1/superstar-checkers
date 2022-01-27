@@ -96,19 +96,16 @@ export const gameEngine = {
 
     if (i === 5) {
       state.winner = state.currentTeam;
-      console.log(state.winner);
     }
   },
   removePiece(piece?: IPiece): void {
     if (!piece) return;
     state.pieces = state.pieces.filter(({ id }) => id !== piece.id);
   },
-  resetPieces(): void {
-    state.pieces = [];
-  },
   startGame(): void {
-    this.resetPieces();
-    this.setupDefaultPieces();
+    state.pieces = [];
+    state.winner = undefined;
     state.currentTeam = Team.BOTTOM;
+    this.setupDefaultPieces();
   },
 };
