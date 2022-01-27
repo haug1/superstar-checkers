@@ -82,7 +82,7 @@ export const gameEngine = {
       this.checkForWinner();
     }
 
-    if (state.currentTeam !== Team.BOTTOM) {
+    if (!state.winner && state.currentTeam !== Team.BOTTOM) {
       await this.computerMove();
     }
   },
