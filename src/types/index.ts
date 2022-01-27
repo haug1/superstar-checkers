@@ -36,4 +36,5 @@ export type IMove = {
 export type IGameState = {
   currentTeam: Team;
   pieces: IPiece[];
+  winner?: Team;
 };

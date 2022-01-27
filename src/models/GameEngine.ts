@@ -15,6 +15,7 @@ import { Position } from "vue-router/types/router";
 const state = Vue.observable<IGameState>({
   currentTeam: Team.BOTTOM,
   pieces: [],
+  winner: undefined,
 });
 
 export const gameEngine = {
@@ -78,10 +79,24 @@ export const gameEngine = {
 
     if (!canContinue) {
       state.currentTeam = rotateTeam(state.currentTeam);
+      this.checkForWinner();
     }
 
     if (state.currentTeam !== Team.BOTTOM) {
       await this.computerMove();
+    }
+  },
+  checkForWinner(): void {
+    let i = 0;
+
+    while (this.getCurrentTeamPieces().length === 0 && i <= 4) {
+      state.currentTeam = rotateTeam(state.currentTeam);
+      i++;
+    }
+
+    if (i === 5) {
+      state.winner = state.currentTeam;
+      console.log(state.winner);
     }
   },
   removePiece(piece?: IPiece): void {
