@@ -125,7 +125,7 @@ export function getAllowedLandingPositions(
   Object.keys(MoveDirection).forEach((directionStr) => {
     const direction = directionStr as MoveDirection;
 
-    for (let jump = 1; jump <= 7; jump++) {
+    for (let jump = 1; jump <= 15; jump++) {
       const landingPosition = move(piece.position, direction, jump);
       const isAllowed = isMoveAllowed(landingPosition, piece, pieces);
       if (isAllowed) {
@@ -133,5 +133,6 @@ export function getAllowedLandingPositions(
       }
     }
   });
+
   return allowedLandingPositions;
 }
