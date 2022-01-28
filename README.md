@@ -1,4 +1,6 @@
-# superstar-checkers-ts
+# superstar-checkers
+
+https://superstarcheckers.antell.org
 
 ## Project setup
 
