@@ -41,7 +41,7 @@ import {
 } from "@/constants/board-consts";
 import BoardPoint from "./BoardPoint.vue";
 import Piece from "@/components/Piece.vue";
-import { IMove, IPiece } from "@/types";
+import { IMove, IPiece, Team } from "@/types";
 import { Position } from "vue-router/types/router";
 import { gameEngine } from "@/models/GameEngine";
 import { isMoveAllowed, newMove } from "@/utils/move-utils";
@@ -83,8 +83,12 @@ export default class Board extends Vue {
 
   get selectedAvailableMoves(): IMove[] {
     return this.allAvailableMoves.filter(
-      (piece) => piece.pieceId === this.selectedPiece?.id
+      (piece) => piece.piece.id === this.selectedPiece?.id
     );
+  }
+
+  get currentTeam(): Team {
+    return gameEngine.state.currentTeam;
   }
 
   isAvailableMove(x: number, y: number): boolean {

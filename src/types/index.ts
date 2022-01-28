@@ -27,7 +27,7 @@ export class Position {
 }
 
 export type IMove = {
-  pieceId: string;
+  piece: IPiece;
   from: Position;
   to: Position;
   capture?: IPiece;

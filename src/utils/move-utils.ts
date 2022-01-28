@@ -1,4 +1,5 @@
 import { BOARD_COORDS } from "@/constants/board-consts";
+import { gameEngine } from "@/models/GameEngine";
 import { IMove, IPiece, Team } from "@/types";
 import { Position } from "vue-router/types/router";
 import { newPosition } from "./piece-utils";
@@ -17,7 +18,7 @@ export const newMove = (
   to: Position,
   capture?: IPiece
 ): IMove => ({
-  pieceId: piece.id,
+  piece: piece,
   from: piece.position,
   to,
   capture,
@@ -56,9 +57,23 @@ export function rotateTeam(currentTeam: Team): Team {
   const teamColors = Object.keys(Team).map(
     (t) => (Team as { [key: string]: string })[t] as Team
   );
-  const foundIndex = teamColors.indexOf(currentTeam);
-  const nextTeamStringKey = teamColors[(foundIndex + 1) % teamColors.length];
-  return teamColors.find((c) => c == nextTeamStringKey) as Team;
+
+  let newTeam = currentTeam;
+
+  const setNewTeam = () => {
+    const foundIndex = teamColors.indexOf(newTeam);
+    const nextTeamStringKey = teamColors[(foundIndex + 1) % teamColors.length];
+    newTeam = teamColors.find((c) => c == nextTeamStringKey) as Team;
+  };
+
+  do {
+    setNewTeam();
+  } while (
+    gameEngine.state.pieces.filter((piece) => piece.team === newTeam).length ===
+    0
+  );
+
+  return newTeam;
 }
 
 export function isMoveAllowed(

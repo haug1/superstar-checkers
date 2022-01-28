@@ -54,48 +54,45 @@ export const gameEngine = {
       ({ position }) => position.x === refPos.x && position.y === refPos.y
     );
   },
-  getRandomMove(): IMove {
+  getRandomComputerMove(): IMove {
     const availableMoves = this.getAllAvailableMoves();
-    return availableMoves.some((move) => move.capture)
-      ? // eslint-disable-next-line
-        availableMoves.find((move) => move.capture)!
+    const captureMove = availableMoves.find((move) => move.capture);
+    return captureMove
+      ? captureMove
       : availableMoves[getRandomNumber(0, availableMoves.length - 1)];
   },
   async computerMove(): Promise<void> {
-    const move = this.getRandomMove();
-    // eslint-disable-next-line
-    const piece = this.getPieceAtPosition(move.from)!;
     await sleep(500);
-    await this.makeMove(piece, move);
+    const move = this.getRandomComputerMove();
+    await this.makeMove(move.piece, move);
   },
   async makeMove(piece: IPiece, move: IMove): Promise<void> {
     piece.position = move.to;
     this.removePiece(move.capture);
+    this.checkForWinner();
 
+    if (!state.winner) {
+      await this.nextTurn(piece, move);
+    }
+  },
+  async nextTurn(piece: IPiece, move: IMove): Promise<void> {
     const continuationMove = this.getAllAvailableMoves().filter(
-      (m) => m.pieceId === piece.id && m.capture
+      (m) => m.piece.id === piece.id && m.capture
     );
     const canContinue = continuationMove.length > 0 && move.capture;
 
     if (!canContinue) {
       state.currentTeam = rotateTeam(state.currentTeam);
-      this.checkForWinner();
     }
 
-    if (!state.winner && state.currentTeam !== Team.BOTTOM) {
+    if (state.currentTeam !== Team.BOTTOM) {
       await this.computerMove();
     }
   },
   checkForWinner(): void {
-    let i = 0;
-
-    while (this.getCurrentTeamPieces().length === 0 && i <= 4) {
-      state.currentTeam = rotateTeam(state.currentTeam);
-      i++;
-    }
-
-    if (i === 5) {
-      state.winner = state.currentTeam;
+    const remainingTeams = [...new Set(state.pieces.map((p) => p.team))];
+    if (remainingTeams.length === 1) {
+      state.winner = remainingTeams[0];
     }
   },
   removePiece(piece?: IPiece): void {
