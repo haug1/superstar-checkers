@@ -8,12 +8,13 @@
     </p>
 
     <ul>
+      <li>the board is padded with 1 extra row of points</li>
+      <li>each team has 5 more pieces</li>
       <li>pieces can jump unlimited range to complete a capture</li>
       <li>
         a capture is only allowed if the moving piece can land on opposite side
         of the captured piece travelling an equal amount of points on each side
       </li>
-      <li>the board is padded with 1 extra row of points</li>
     </ul>
     <br />
     <h2>Technical</h2>

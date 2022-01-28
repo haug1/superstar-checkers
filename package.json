@@ -7,9 +7,13 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "test": "jest ./tests/unit"
+    "test": "jest ./tests/unit",
+    "amp:setup": "amplify pull --appId dkm362wt223sr --envName dev",
+    "a:s": "amplify pull --appId dkm362wt223sr --envName dev"
   },
   "dependencies": {
+    "@aws-amplify/ui-vue": "^2.0.10",
+    "aws-amplify": "^4.3.13",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
