@@ -59,15 +59,10 @@ export function rotateTeam(currentTeam: Team): Team {
   );
 
   let newTeam = currentTeam;
-
-  const setNewTeam = () => {
+  do {
     const foundIndex = teamColors.indexOf(newTeam);
     const nextTeamStringKey = teamColors[(foundIndex + 1) % teamColors.length];
     newTeam = teamColors.find((c) => c == nextTeamStringKey) as Team;
-  };
-
-  do {
-    setNewTeam();
   } while (
     gameEngine.state.pieces.filter((piece) => piece.team === newTeam).length ===
     0
@@ -121,13 +116,10 @@ export function isMoveAllowed(
       return {
         capture: undefined,
       };
-    } else {
-      const capture = isCapture();
-      if (capture) {
-        return {
-          capture: capturePosition,
-        };
-      }
+    } else if (isCapture()) {
+      return {
+        capture: capturePosition,
+      };
     }
   }
 }
