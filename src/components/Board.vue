@@ -99,7 +99,9 @@ export default class NewBoard extends Vue {
   }
 
   mounted(): void {
-    gameEngine.startGame();
+    if (!gameEngine.state.gameStarted) {
+      gameEngine.startGame();
+    }
   }
 }
 </script>

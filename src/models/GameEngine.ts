@@ -13,6 +13,7 @@ import Vue from "vue";
 import { Position } from "vue-router/types/router";
 
 const state = Vue.observable<IGameState>({
+  gameStarted: false,
   currentTeam: Team.BOTTOM,
   pieces: [],
   winner: undefined,
@@ -103,6 +104,7 @@ export const gameEngine = {
     state.pieces = [];
     state.winner = undefined;
     state.currentTeam = Team.BOTTOM;
+    state.gameStarted = true;
     this.setupDefaultPieces();
   },
 };

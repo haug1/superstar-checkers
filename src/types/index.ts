@@ -38,6 +38,7 @@ export type IUIPieces = {
 };
 
 export type IGameState = {
+  gameStarted: boolean;
   currentTeam: Team;
   pieces: IPiece[];
   winner?: Team;
