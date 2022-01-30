@@ -1,10 +1,10 @@
 export enum Team {
-  BOTTOM = "blue",
-  LEFT_BOTTOM = "red",
-  LEFT_TOP = "purple",
-  TOP = "white",
-  RIGHT_TOP = "yellow",
-  RIGHT_BOTTOM = "green",
+  BOTTOM = "rgb(0, 0, 255)",
+  LEFT_BOTTOM = "rgb(255, 0, 0)",
+  LEFT_TOP = "rgb(204, 0, 255)",
+  TOP = "rgb(255, 255, 255)",
+  RIGHT_TOP = "rgb(255, 255, 0)",
+  RIGHT_BOTTOM = "rgb(0, 255, 0)",
 }
 
 export type IPiece = {
@@ -31,6 +31,10 @@ export type IMove = {
   from: Position;
   to: Position;
   capture?: IPiece;
+};
+
+export type IUIPieces = {
+  [y: number]: { [x: number]: IPiece | undefined };
 };
 
 export type IGameState = {
