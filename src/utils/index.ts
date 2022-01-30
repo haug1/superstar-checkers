@@ -151,6 +151,7 @@ export function sleep(ms: number): Promise<void> {
 }
 
 export function getRandomNumber(min = 0, max = 0): number {
+  if (!min && !max) return 0;
   let random = Math.floor(Math.random() * 10000000000);
   if (max) {
     random = random % (max - min + 1);
