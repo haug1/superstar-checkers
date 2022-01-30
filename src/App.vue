@@ -10,7 +10,7 @@
 
 <style lang="scss">
 body {
-  background: rgba(165, 54, 54, 0.568);
+  background: rgb(141, 141, 141);
 }
 
 #app {
