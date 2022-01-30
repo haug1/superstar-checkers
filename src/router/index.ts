@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Game from "../views/Game.vue";
+import GamePage from "../views/GamePage.vue";
 
 Vue.use(VueRouter);
 
@@ -8,7 +8,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Superstar Checkers",
-    component: Game,
+    component: GamePage,
   },
   {
     path: "/about",
