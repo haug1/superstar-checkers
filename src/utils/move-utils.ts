@@ -1,4 +1,4 @@
-import { BOARD_COORDS } from "@/constants/board-consts";
+import { BOARD_COORDS } from "@/constants";
 import { gameEngine } from "@/models/GameEngine";
 import { IMove, IPiece, Team } from "@/types";
 import { Position } from "vue-router/types/router";
@@ -76,8 +76,8 @@ export function isMoveAllowed(
   pieceToMove: IPiece,
   pieces: IPiece[]
 ): { capture?: Position } | undefined {
-  const isInsideBoard = BOARD_COORDS.some(
-    ([x, y]) => x === landingPosition.x && y === landingPosition.y
+  const isInsideBoard = BOARD_COORDS.some((xs, y) =>
+    xs.some((x) => landingPosition.x === x && landingPosition.y === y)
   );
 
   const isNotOccupied = !pieces.some(

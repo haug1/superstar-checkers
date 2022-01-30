@@ -1,4 +1,4 @@
-import { TEAM_COORDS_MAP } from "@/constants/board-consts";
+import { TEAM_COORDS_MAP } from "@/constants";
 import { IGameState, IMove, IPiece, Team } from "@/types";
 import {
   getAllowedLandingPositions,
