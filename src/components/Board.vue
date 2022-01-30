@@ -128,21 +128,14 @@ export default class NewBoard extends Vue {
   border-radius: 100%;
 }
 
-@media only screen and (min-width: 1200px) {
-  .board-root {
-    margin: 0 auto;
-    width: 90%;
-  }
-}
-
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: 1000px) {
   .board-root {
     margin: 0 auto;
     width: 75%;
   }
 }
 
-@media only screen and (min-width: 1800px) {
+@media only screen and (min-width: 1400px) {
   .board-root {
     margin: 0 auto;
     width: 50%;
