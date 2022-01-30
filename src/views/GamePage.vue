@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Board from "@/components/Board.vue";
-import { gameEngine } from "@/models/GameEngine";
+import { gameEngine } from "@/state/GameEngine";
 import { Team } from "@/types";
 
 @Component({

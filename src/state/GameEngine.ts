@@ -2,13 +2,13 @@ import { TEAM_COORDS_MAP } from "@/constants";
 import { IGameState, IMove, IPiece, Team } from "@/types";
 import {
   getAllowedLandingPositions,
+  getRandomNumber,
   isMoveAllowed,
   newMove,
+  newPiece,
   rotateTeam,
-} from "@/utils/move-utils";
-import { newPiece } from "@/utils/piece-utils";
-import { sleep } from "@/utils/promise-utils";
-import { getRandomNumber } from "@/utils/rng";
+  sleep,
+} from "@/utils";
 import Vue from "vue";
 import { Position } from "vue-router/types/router";
 

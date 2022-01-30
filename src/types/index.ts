@@ -43,3 +43,12 @@ export type IGameState = {
   pieces: IPiece[];
   winner?: Team;
 };
+
+export enum MoveDirection {
+  LEFT = "LEFT",
+  LEFT_UP = "LEFT_UP",
+  LEFT_DOWN = "LEFT_DOWN",
+  RIGHT = "RIGHT",
+  RIGHT_UP = "RIGHT_UP",
+  RIGHT_DOWN = "RIGHT_DOWN",
+}

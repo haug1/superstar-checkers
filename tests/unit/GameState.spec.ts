@@ -1,11 +1,10 @@
-import { IPiece, Position, Team } from "@/types";
+import { IPiece, Position, Team, MoveDirection } from "@/types";
 import {
   getAllowedLandingPositions,
   isMoveAllowed,
   move,
-  MoveDirection,
-} from "@/utils/move-utils";
-import { newPosition } from "@/utils/piece-utils";
+  newPosition,
+} from "@/utils";
 
 describe("move({x:11,y:14},LEFT)", () => {
   test("returns 9,14 as expected", () => {

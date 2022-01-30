@@ -1,17 +1,7 @@
 import { BOARD_COORDS } from "@/constants";
-import { gameEngine } from "@/models/GameEngine";
-import { IMove, IPiece, Team } from "@/types";
+import { gameEngine } from "@/state/GameEngine";
+import { IMove, IPiece, MoveDirection, Team } from "@/types";
 import { Position } from "vue-router/types/router";
-import { newPosition } from "./piece-utils";
-
-export enum MoveDirection {
-  LEFT = "LEFT",
-  LEFT_UP = "LEFT_UP",
-  LEFT_DOWN = "LEFT_DOWN",
-  RIGHT = "RIGHT",
-  RIGHT_UP = "RIGHT_UP",
-  RIGHT_DOWN = "RIGHT_DOWN",
-}
 
 export const newMove = (
   piece: IPiece,
@@ -142,4 +132,28 @@ export function getAllowedLandingPositions(
   });
 
   return allowedLandingPositions;
+}
+
+export const newPiece = (
+  x: number,
+  y: number,
+  teamPosition: string
+): IPiece => ({
+  position: { x, y },
+  id: `${x},${y}`,
+  team: (Team as { [key: string]: string })[teamPosition] as Team,
+});
+
+export const newPosition = (x: number, y: number): Position => ({ x, y });
+
+export function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export function getRandomNumber(min = 0, max = 0): number {
+  let random = Math.floor(Math.random() * 10000000000);
+  if (max) {
+    random = random % (max - min + 1);
+  }
+  return random + min;
 }

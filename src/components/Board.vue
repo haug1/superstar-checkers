@@ -37,8 +37,8 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { IMove, IPiece, IUIPieces, Team } from "@/types";
-import { gameEngine } from "@/models/GameEngine";
-import { isMoveAllowed, newMove } from "@/utils/move-utils";
+import { gameEngine } from "@/state/GameEngine";
+import { isMoveAllowed, newMove } from "@/utils";
 import { Position } from "vue-router/types/router";
 import { BOARD_COORDS } from "@/constants";
 
