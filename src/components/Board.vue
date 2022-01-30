@@ -79,7 +79,12 @@ export default class NewBoard extends Vue {
     let selectedPiece: IPiece = this.selectedPiece || ({} as IPiece);
     const isAllowed =
       this.selectedPiece &&
-      isMoveAllowed(position, this.selectedPiece, gameEngine.state.pieces);
+      isMoveAllowed(
+        position,
+        this.selectedPiece,
+        gameEngine.state.pieces,
+        gameEngine.state.continueFrom
+      );
     if (isAllowed) {
       const move = newMove(
         selectedPiece,
@@ -87,7 +92,9 @@ export default class NewBoard extends Vue {
         gameEngine.getPieceAtPosition(isAllowed.capture)
       );
       await gameEngine.makeMove(selectedPiece, move);
-      this.selectedPiece = null;
+      if (!move.capture) {
+        this.selectedPiece = null;
+      }
     }
   }
 

@@ -38,6 +38,7 @@ export type IUIPieces = {
 };
 
 export type IGameState = {
+  continueFrom: IMove | undefined;
   gameStarted: boolean;
   currentTeam: Team;
   pieces: IPiece[];

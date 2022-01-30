@@ -22,7 +22,8 @@ describe("isMoveAllowed", () => {
           id: "",
           team: Team.BOTTOM,
         },
-        []
+        [],
+        undefined
       )
     ).toEqual(undefined);
   });
@@ -36,7 +37,8 @@ describe("isMoveAllowed", () => {
           id: "",
           team: Team.BOTTOM,
         },
-        []
+        [],
+        undefined
       )
     ).not.toEqual(undefined);
   });
@@ -53,7 +55,7 @@ describe("isMoveAllowed", () => {
       team: Team.LEFT_BOTTOM,
     };
     expect(
-      isMoveAllowed(newPosition(4, 9), mockPiece, [mockCapturePiece])
+      isMoveAllowed(newPosition(4, 9), mockPiece, [mockCapturePiece], undefined)
     ).not.toEqual({ capture: true });
   });
 });
@@ -86,7 +88,11 @@ describe("getAvailableMoves", () => {
     );
 
   test("with capture move test", () => {
-    const candidate = getAllowedLandingPositions(piece, [enemyPiece]);
+    const candidate = getAllowedLandingPositions(
+      piece,
+      [enemyPiece],
+      undefined
+    );
     const expected = [...expectedPositions, newPosition(15, 10)];
 
     assertIsEqualNoStrictOrder(candidate, expected);

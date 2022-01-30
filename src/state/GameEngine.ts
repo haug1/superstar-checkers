@@ -12,9 +12,10 @@ import {
 import Vue from "vue";
 import { Position } from "vue-router/types/router";
 
-const PLAYER_TEAM = Team.BOTTOM;
+export const PLAYER_TEAM = Team.BOTTOM;
 
 const state = Vue.observable<IGameState>({
+  continueFrom: undefined,
   gameStarted: false,
   currentTeam: PLAYER_TEAM,
   pieces: [],
@@ -39,14 +40,16 @@ export const gameEngine = {
   getAllAvailableMoves(): IMove[] {
     return this.getCurrentTeamPieces().reduce<IMove[]>((moves, piece) => {
       return moves.concat(
-        getAllowedLandingPositions(piece, state.pieces).map((pos) =>
-          newMove(
-            piece,
-            pos,
-            this.getPieceAtPosition(
-              isMoveAllowed(pos, piece, state.pieces)?.capture
+        getAllowedLandingPositions(piece, state.pieces, state.continueFrom).map(
+          (pos) =>
+            newMove(
+              piece,
+              pos,
+              this.getPieceAtPosition(
+                isMoveAllowed(pos, piece, state.pieces, state.continueFrom)
+                  ?.capture
+              )
             )
-          )
         )
       );
     }, []);
@@ -85,7 +88,10 @@ export const gameEngine = {
     const canContinue = continuationMove.length > 0 && move.capture;
 
     if (!canContinue) {
-      state.currentTeam = rotateTeam(state.currentTeam);
+      state.currentTeam = rotateTeam(state.currentTeam, state.pieces);
+      state.continueFrom = undefined;
+    } else {
+      state.continueFrom = move;
     }
 
     if (state.currentTeam !== PLAYER_TEAM) {

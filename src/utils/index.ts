@@ -1,5 +1,4 @@
 import { BOARD_COORDS } from "@/constants";
-import { gameEngine } from "@/state/GameEngine";
 import { IMove, IPiece, MoveDirection, Team } from "@/types";
 import { Position } from "vue-router/types/router";
 
@@ -43,7 +42,7 @@ export function getAllSimpleResultsOfMoveFunction(
   );
 }
 
-export function rotateTeam(currentTeam: Team): Team {
+export function rotateTeam(currentTeam: Team, pieces: IPiece[]): Team {
   const teamColors = Object.keys(Team).map(
     (t) => (Team as { [key: string]: string })[t] as Team
   );
@@ -53,10 +52,7 @@ export function rotateTeam(currentTeam: Team): Team {
     const foundIndex = teamColors.indexOf(newTeam);
     const nextTeamStringKey = teamColors[(foundIndex + 1) % teamColors.length];
     newTeam = teamColors.find((c) => c == nextTeamStringKey) as Team;
-  } while (
-    gameEngine.state.pieces.filter((piece) => piece.team === newTeam).length ===
-    0
-  );
+  } while (pieces.filter((piece) => piece.team === newTeam).length === 0);
 
   return newTeam;
 }
@@ -64,7 +60,8 @@ export function rotateTeam(currentTeam: Team): Team {
 export function isMoveAllowed(
   landingPosition: Position,
   pieceToMove: IPiece,
-  pieces: IPiece[]
+  pieces: IPiece[],
+  continueFrom: IMove | undefined
 ): { capture?: Position } | undefined {
   const isInsideBoard = BOARD_COORDS.some((xs, y) =>
     xs.some((x) => landingPosition.x === x && landingPosition.y === y)
@@ -101,7 +98,11 @@ export function isMoveAllowed(
       );
   };
 
-  if (isInsideBoard && isNotOccupied) {
+  const continuationMoveGuard = !continueFrom
+    ? true
+    : pieceToMove.id === continueFrom.piece.id && isCapture();
+
+  if (isInsideBoard && isNotOccupied && continuationMoveGuard) {
     if (isWithinRange) {
       return {
         capture: undefined,
@@ -116,7 +117,8 @@ export function isMoveAllowed(
 
 export function getAllowedLandingPositions(
   piece: IPiece,
-  pieces: IPiece[]
+  pieces: IPiece[],
+  continueFrom: IMove | undefined
 ): Position[] {
   const allowedLandingPositions: Position[] = [];
   Object.keys(MoveDirection).forEach((directionStr) => {
@@ -124,7 +126,12 @@ export function getAllowedLandingPositions(
 
     for (let jump = 1; jump <= 15; jump++) {
       const landingPosition = move(piece.position, direction, jump);
-      const isAllowed = isMoveAllowed(landingPosition, piece, pieces);
+      const isAllowed = isMoveAllowed(
+        landingPosition,
+        piece,
+        pieces,
+        continueFrom
+      );
       if (isAllowed) {
         allowedLandingPositions.push(landingPosition);
       }
