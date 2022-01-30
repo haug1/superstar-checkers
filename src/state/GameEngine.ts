@@ -59,9 +59,9 @@ export const gameEngine = {
   },
   getRandomComputerMove(): IMove {
     const availableMoves = this.getAllAvailableMoves();
-    const captureMove = availableMoves.find((move) => move.capture);
-    return captureMove
-      ? captureMove
+    const captureMoves = availableMoves.filter((move) => move.capture);
+    return captureMoves.length > 0
+      ? captureMoves[getRandomNumber(0, captureMoves.length - 1)]
       : availableMoves[getRandomNumber(0, availableMoves.length - 1)];
   },
   async computerMove(): Promise<void> {
