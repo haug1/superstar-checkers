@@ -110,8 +110,9 @@ export default class NewBoard extends Vue {
   display: flex;
   flex-direction: row;
   margin: auto;
-  gap: 0.5%;
-  height: 4.5vh;
+  gap: 0.2vh;
+  height: 4vh;
+  min-height: 10px;
 }
 
 .board-point {
