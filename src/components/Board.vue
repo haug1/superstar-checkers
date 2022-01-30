@@ -6,7 +6,6 @@
         :key="y"
         :style="{
           width: `${6.25 * xPoints.length}%`,
-          margin: 'auto',
         }"
       >
         <template v-for="x in xPoints">
@@ -112,13 +111,12 @@ export default class NewBoard extends Vue {
   flex-direction: row;
   margin: auto;
   gap: 0.5%;
+  height: 4.5vh;
 }
 
 .board-point {
   border: 0.2vh solid black;
   background: rgb(46, 46, 46);
-  aspect-ratio: 1 / 1;
-  max-height: 4vh;
   border-radius: 100%;
 }
 

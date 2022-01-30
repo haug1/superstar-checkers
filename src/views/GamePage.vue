@@ -18,8 +18,24 @@ import { Team } from "@/types";
   },
 })
 export default class Game extends Vue {
-  get winner(): Team | undefined {
-    return gameEngine.state.winner;
+  get winner(): string | undefined {
+    if (gameEngine.state.winner) {
+      switch (gameEngine.state.winner) {
+        case Team.BOTTOM:
+          return "blue";
+        case Team.LEFT_BOTTOM:
+          return "red";
+        case Team.LEFT_TOP:
+          return "purple";
+        case Team.TOP:
+          return "white";
+        case Team.RIGHT_TOP:
+          return "yellow";
+        case Team.RIGHT_BOTTOM:
+          return "green";
+      }
+    }
+    return undefined;
   }
 
   restartGame(): void {

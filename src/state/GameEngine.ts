@@ -12,9 +12,11 @@ import {
 import Vue from "vue";
 import { Position } from "vue-router/types/router";
 
+const PLAYER_TEAM = Team.BOTTOM;
+
 const state = Vue.observable<IGameState>({
   gameStarted: false,
-  currentTeam: Team.BOTTOM,
+  currentTeam: PLAYER_TEAM,
   pieces: [],
   winner: undefined,
 });
@@ -86,7 +88,7 @@ export const gameEngine = {
       state.currentTeam = rotateTeam(state.currentTeam);
     }
 
-    if (state.currentTeam !== Team.BOTTOM) {
+    if (state.currentTeam !== PLAYER_TEAM) {
       await this.computerMove();
     }
   },
@@ -103,7 +105,7 @@ export const gameEngine = {
   startGame(): void {
     state.pieces = [];
     state.winner = undefined;
-    state.currentTeam = Team.BOTTOM;
+    state.currentTeam = PLAYER_TEAM;
     state.gameStarted = true;
     this.setupDefaultPieces();
   },
